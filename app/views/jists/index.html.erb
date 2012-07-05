@@ -1,0 +1,7 @@
+<h1>All Jists</h1>
+
+<ul>
+  <% @jists.each do |jist| %>
+    <li><%= link_to jist.description, jist %></li>
+  <% end %>
+</ul>

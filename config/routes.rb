@@ -1,4 +1,8 @@
 Jists::Application.routes.draw do
+
+  root :to => 'jists#index'
+  resources :jists
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

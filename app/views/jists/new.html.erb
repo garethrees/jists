@@ -1,0 +1,19 @@
+<h1>New Jist</h1>
+
+<%= form_for @jist do |f| %>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :paste %>
+    <%= f.text_area :paste %>
+  </div>
+
+  <div class="field">
+    <%= f.submit %>
+  </div>
+
+<% end %>
