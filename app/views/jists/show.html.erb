@@ -1,3 +1,20 @@
 <h1><%= @jist.description %></h1>
+<p><%= @jist.head.message %></p>
 
-<%= @jist.paste.inspect %>
+<%# @jist.paste.first.message %>
+
+<h2>Files</h2>
+
+<% @jist.files.each do |file| %>
+  <h4><%= file[:name] %></h4>
+  <pre>
+    <code><%= file[:data] %></code>
+  </pre>
+<% end %>
+
+<h3>History</h3>
+<ol style="list-style: disc;">
+<% @jist.commits.each do |commit| %>
+  <li><%= link_to commit.id, "#" %> <mark><%= commit.message %></mark></li>
+<% end %>
+</ol>

@@ -30,6 +30,14 @@ class JistsController < ApplicationController
 
   def update
     @jist = Jist.find(params[:id])
+
+    respond_to do |format|
+      if @jist.update_attributes(params[:jist])
+        format.html { redirect_to(@jist, :notice => 'Jist was successfully updated.') }
+      else
+        format.html { render :edit }
+      end
+    end
   end
 
   def destroy
