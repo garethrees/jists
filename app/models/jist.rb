@@ -18,26 +18,26 @@ class Jist < ActiveRecord::Base
   # Return first file's contents for edit box
   # TODO: wont need this soon hopefuly
   def paste
-    head.tree.blobs.first.data.to_s if repo.present?
+    head.commit.tree.blobs.first.data.to_s if repo.present?
   end
 
   # Each file's data including filename and contents
   def files
     files = []
-    head.tree.contents.map do |blob|
+    head.commit.tree.contents.map do |blob|
       files << { :name => blob.name, :data => blob.data }
     end
     files
   end
 
   def head
-    commits.last if repo.present?
+    repo.heads.first if repo.present?
   end
 
   # List of commits
   # Don't know why HEAD is commits.last - file an issue?
   def commits
-    repo.commits.reverse if repo.present?
+    repo.commits if repo.present?
   end
 
   def update_paste
@@ -46,7 +46,7 @@ class Jist < ActiveRecord::Base
     i.read_tree("HEAD")
     i.add("gistfile.txt", @paste.to_s)
     # i.commit('', [repo.commits.first])
-    i.commit('', [head])
+    i.commit('', [head.commit.id])
   end
 
   def repo
