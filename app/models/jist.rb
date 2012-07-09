@@ -31,11 +31,11 @@ class Jist < ActiveRecord::Base
   end
 
   def head
-    commits.first if repo.present?
+    commits.last if repo.present?
   end
 
   # List of commits
-  # Don't know why HEAD is commits.last - file issue?
+  # Don't know why HEAD is commits.last - file an issue?
   def commits
     repo.commits.reverse if repo.present?
   end
@@ -43,9 +43,10 @@ class Jist < ActiveRecord::Base
   def update_paste
     Rails.logger.info "UPDATING PASTE WITH: #{@paste}"
     i = repo.index
-    i.read_tree("master")
+    i.read_tree("HEAD")
     i.add("gistfile.txt", @paste.to_s)
-    i.commit('', [repo.commits.first])
+    # i.commit('', [repo.commits.first])
+    i.commit('', [head])
   end
 
   def repo
@@ -57,9 +58,10 @@ class Jist < ActiveRecord::Base
   end
 
   def init_repo
+    # init_bare_or_open
     repo = Grit::Repo.init_bare("#{JIST_REPO}#{id}.git")
     Rails.logger.info "INIT REPO: #{repo.inspect}"
-    repo.index.add('gistfile.txt', 'initial commit')
+    repo.index.add('gistfile.txt', 'initial data')
     repo.index.commit('initial')
     return repo
   end

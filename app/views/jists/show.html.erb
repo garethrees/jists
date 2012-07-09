@@ -1,4 +1,5 @@
 <h1><%= @jist.description %></h1>
+<p><small><%= link_to "Edit", edit_jist_path(@jist) %></small></p>
 <p><%= @jist.head.message %></p>
 
 <%# @jist.paste.first.message %>
@@ -15,6 +16,6 @@
 <h3>History</h3>
 <ol style="list-style: disc;">
 <% @jist.commits.each do |commit| %>
-  <li><%= link_to commit.id, "#" %> <mark><%= commit.message %></mark></li>
+  <li><%= link_to commit.id, "#{ @jist.id }/#{ commit.id }" %> <b><%= commit.author %></b> <mark><%= commit.message %></mark> <small><%= commit.authored_date %></small></li>
 <% end %>
 </ol>
