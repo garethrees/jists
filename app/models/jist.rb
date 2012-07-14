@@ -36,31 +36,23 @@ class Jist < ActiveRecord::Base
     repo.commits if repo.present?
   end
 
-
-
-  # def repo
-  #   # @repo ||= Grit::Repo.init_bare_or_open("#{JIST_REPO}#{id}.git")
-  #   # Rails.logger.info "REPO: #{@repo.inspect}"
-  # end
-
+  # Find or create a Grit::Repo unless self is not persisted
+  #
+  # Returns a Grit::Repo
   def repo
-      @repo = Grit::Repo.new("#{JIST_REPO}#{id}.git") unless self.new_record?
-      debug __method__, "@repo: #{@repo.inspect}"
-      return @repo
-  
-    # @repo ||= Grit::Repo.init_bare("#{JIST_REPO}#{id}.git")
+    @repo ||= Grit::Repo.init_bare_or_open("#{JIST_REPO}#{id}.git") unless self.new_record?
   end
 
 
   private
 
   def update_repo
-    @repo = Grit::Repo.init_bare_or_open("#{JIST_REPO}#{id}.git")
-    i = repo.index
+    r = repo
+    i = r.index
     i.read_tree 'master'
     i.add 'gistfile.txt', @paste.to_s
 
-    if @repo.commits.size == 0
+    if r.commit_count.zero?
       i.commit 'Initial Commit'
     else
       i.commit '', [repo.commits.first]
