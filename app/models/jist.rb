@@ -4,7 +4,7 @@ class Jist < ActiveRecord::Base
 
   # The path to the repos are saved
   # TODO: Move to environment config
-  REPO_PATH = "#{Rails.root}/tmp/gists/"
+  REPO_PATH = Jists::Application.config.repo_path
 
   after_save :update_repo
 

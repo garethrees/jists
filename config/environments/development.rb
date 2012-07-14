@@ -34,4 +34,10 @@ Jists::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.repo_path = "#{Rails.root}/tmp/jists/"
+  unless File.directory? config.repo_path
+    Dir.mkdir(config.repo_path, 0755)
+  end
+
 end
