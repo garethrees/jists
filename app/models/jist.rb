@@ -9,10 +9,9 @@ class Jist < ActiveRecord::Base
     @paste = paste
   end
 
-  # Return first file's contents for edit box
-  # TODO: wont need this soon hopefuly
+  # Returns first file's contents for new/edit textarea
   def paste
-    head.commit.tree.blobs.first.data.to_s if repo.present? && head
+    head.commit.tree.blobs.first.data.to_s if repo.present?
   end
 
   # Public: Each file's data including filename and contents
@@ -26,16 +25,20 @@ class Jist < ActiveRecord::Base
     files
   end
 
+  # Public: The latest commit in the repo
+  #
+  # Returns a Grit::Commit?
   def head
     debug __method__, "head: #{repo.head}"
-    repo.head if repo.present?
+    repo.head
   end
 
-  # List of commits
-  # Don't know why HEAD is commits.last - file an issue?
+  # Public: List of commits
+  #
+  # Returns an Array of ...
   def commits
     debug __method__, "commits: #{repo.commits}"
-    repo.commits if repo.present?
+    repo.commits
   end
 
   # Find or create a Grit::Repo unless self is not persisted
