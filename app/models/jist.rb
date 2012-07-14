@@ -15,11 +15,13 @@ class Jist < ActiveRecord::Base
     head.commit.tree.blobs.first.data.to_s if repo.present? && head
   end
 
-  # Each file's data including filename and contents
+  # Public: Each file's data including filename and contents
+  #
+  # Returns an Array
   def files
     files = []
     head.commit.tree.contents.map do |blob|
-      files << { :name => blob.name, :data => blob.data }
+      files << { name: blob.name, data: blob.data }
     end
     files
   end
