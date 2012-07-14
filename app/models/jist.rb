@@ -15,7 +15,7 @@ class Jist < ActiveRecord::Base
 
   # Returns first file's contents for new/edit textarea
   def paste
-    head.commit.tree.blobs.first.data.to_s if repo.present?
+    head.tree.blobs.first.data.to_s if repo.present?
   end
 
   # Public: Each file's data including filename and contents
@@ -23,7 +23,7 @@ class Jist < ActiveRecord::Base
   # Returns an Array
   def files
     files = []
-    head.commit.tree.contents.map do |blob|
+    head.tree.contents.map do |blob|
       files << { name: blob.name, data: blob.data }
     end
     files
@@ -34,7 +34,7 @@ class Jist < ActiveRecord::Base
   # Returns a Grit::Commit?
   def head
     debug __method__, "head: #{repo.head}"
-    repo.head
+    repo.head.commit
   end
 
   # Public: List of commits
