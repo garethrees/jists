@@ -1,14 +1,8 @@
 class Jist < ActiveRecord::Base
 
   JIST_REPO = "#{Rails.root}/tmp/gists/"
-  
-  after_create :init_repo
-  after_save   :update_paste
 
-
-  # def after_initialize
-  #   @repo = nil
-  # end
+  after_save :update_repo
 
   # The first file's contents "saved" for when repo is set up
   def paste=(paste)
@@ -18,7 +12,7 @@ class Jist < ActiveRecord::Base
   # Return first file's contents for edit box
   # TODO: wont need this soon hopefuly
   def paste
-    head.commit.tree.blobs.first.data.to_s if repo.present?
+    head.commit.tree.blobs.first.data.to_s if repo.present? && head
   end
 
   # Each file's data including filename and contents
@@ -31,39 +25,50 @@ class Jist < ActiveRecord::Base
   end
 
   def head
-    repo.heads.first if repo.present?
+    debug __method__, "head: #{repo.head}"
+    repo.head if repo.present?
   end
 
   # List of commits
   # Don't know why HEAD is commits.last - file an issue?
   def commits
+    debug __method__, "commits: #{repo.commits}"
     repo.commits if repo.present?
   end
 
-  def update_paste
-    Rails.logger.info "UPDATING PASTE WITH: #{@paste}"
-    i = repo.index
-    i.read_tree("HEAD")
-    i.add("gistfile.txt", @paste.to_s)
-    # i.commit('', [repo.commits.first])
-    i.commit('', [head.commit.id])
-  end
+
+
+  # def repo
+  #   # @repo ||= Grit::Repo.init_bare_or_open("#{JIST_REPO}#{id}.git")
+  #   # Rails.logger.info "REPO: #{@repo.inspect}"
+  # end
 
   def repo
       @repo = Grit::Repo.new("#{JIST_REPO}#{id}.git") unless self.new_record?
-      Rails.logger.info "REPO: #{@repo.inspect}"
+      debug __method__, "@repo: #{@repo.inspect}"
       return @repo
-
+  
     # @repo ||= Grit::Repo.init_bare("#{JIST_REPO}#{id}.git")
   end
 
-  def init_repo
-    # init_bare_or_open
-    repo = Grit::Repo.init_bare("#{JIST_REPO}#{id}.git")
-    Rails.logger.info "INIT REPO: #{repo.inspect}"
-    repo.index.add('gistfile.txt', 'initial data')
-    repo.index.commit('initial')
-    return repo
+
+  private
+
+  def update_repo
+    @repo = Grit::Repo.init_bare_or_open("#{JIST_REPO}#{id}.git")
+    i = repo.index
+    i.read_tree 'master'
+    i.add 'gistfile.txt', @paste.to_s
+
+    if @repo.commits.size == 0
+      i.commit 'Initial Commit'
+    else
+      i.commit '', [repo.commits.first]
+    end
+  end
+
+  def debug(caller_name = nil, msg = nil)
+    Rails.logger.debug "\n#== #{self.class}##{caller_name} >> #{msg}\n"
   end
 
 end
