@@ -20,13 +20,18 @@ class Jist < ActiveRecord::Base
 
   # Public: Each file's data including filename and contents
   #
+  # commit_ref - A String SHA of the files at the time of the commit
+  #
   # Returns an Array
-  def files
+  def files(commit_ref = nil)
     files = []
-    head.tree.contents.map do |blob|
+    sha = commit_ref.present? ? commit_ref : head.id
+
+    repo.commit(sha).tree.contents.map do |blob|
       files << { name: blob.name, data: blob.data }
     end
-    files
+
+    return files
   end
 
   # Public: The latest commit in the repo

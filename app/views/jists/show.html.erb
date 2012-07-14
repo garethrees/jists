@@ -5,7 +5,7 @@
 
 <h2>Files</h2>
 
-<% @jist.files.each do |file| %>
+<% @jist.files(@commit).each do |file| %>
   <h4><%= file[:name] %></h4>
   <pre>
     <code><%= file[:data] %></code>
