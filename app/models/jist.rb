@@ -1,6 +1,10 @@
 class Jist < ActiveRecord::Base
 
-  JIST_REPO = "#{Rails.root}/tmp/gists/"
+  # TODO: include / extend Grit::Repo?
+
+  # The path to the repos are saved
+  # TODO: Move to environment config
+  REPO_PATH = "#{Rails.root}/tmp/gists/"
 
   after_save :update_repo
 
@@ -45,12 +49,20 @@ class Jist < ActiveRecord::Base
   #
   # Returns a Grit::Repo
   def repo
-    @repo ||= Grit::Repo.init_bare_or_open("#{JIST_REPO}#{id}.git") unless self.new_record?
+    @repo ||= Grit::Repo.init_bare_or_open("#{REPO_PATH}#{id}.git") unless self.new_record?
   end
 
+  #============================================================================
+  # PRIVATE
+  #============================================================================
 
   private
 
+  # Update the Grit::Repo with the paste data
+  #
+  # TODO: Accept a custom commit message
+  # TODO: Accept a filename
+  # TODO: Accept multiple files
   def update_repo
     r = repo
     i = r.index
