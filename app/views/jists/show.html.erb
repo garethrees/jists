@@ -15,6 +15,6 @@
 <h3>History</h3>
 <ol>
 <% @jist.commits.each do |commit| %>
-  <li><%= link_to commit.id, "#{ @jist.id }/#{ commit.id }" %> <b><%= commit.author %></b> <mark><%= commit.message %></mark> <small><%= commit.authored_date %></small></li>
+  <li><%= link_to commit.id, jist_path(@jist, commit.id) %> <b><%= commit.author %></b> <mark><%= commit.message %></mark> <small><%= commit.authored_date %></small></li>
 <% end %>
 </ol>

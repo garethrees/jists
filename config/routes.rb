@@ -1,7 +1,9 @@
 Jists::Application.routes.draw do
 
   root :to => 'jists#index'
-  resources :jists
+  match ':id/edit' => 'jists#edit', :as => :edit_jist, :via => :get
+  match ':id/(:sha)' => 'jists#show', :as => :jist, :via => :get
+  resources :jists, :path => '/', :except => [:show, :edit]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
