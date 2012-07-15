@@ -79,6 +79,7 @@ class Jist < ActiveRecord::Base
     else
       i.commit '', [repo.commits.first]
     end
+    touch :updated_at
   end
 
   def debug(caller_name = nil, msg = nil)
