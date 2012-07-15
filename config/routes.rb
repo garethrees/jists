@@ -3,11 +3,11 @@ Jists::Application.routes.draw do
   match 'new' => 'jists#new', :as => :new_jist, :via => :get
   match ':id/edit' => 'jists#edit', :as => :edit_jist, :via => :get
   match ':id/(:sha)' => 'jists#show', :as => :jist, :via => :get
-  match '/' => 'jists#index', :as => :jists, :via => :get
-  match '/' => 'jists#create', :via => :post
+  match '/jists' => 'jists#index', :as => :jists, :via => :get
+  match '/jists' => 'jists#create', :via => :post
   match ':id' => 'jists#update', :via => :put
   match ':id' => 'jists#destroy', :via => :delete
-  root :to => 'jists#index'
+  root :to => 'jists#new'
 
   # resources :jists, :path => '/', :except => [:new, :show, :edit]
 
