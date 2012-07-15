@@ -1,0 +1,20 @@
+<%= form_for jist do |f| %>
+
+  <header class="cf">
+    <h1 class="title">
+      <%= content_tag(:span, "##{ jist.id }", class: 'id') unless jist.new_record? %>
+      <%= f.text_field :description, placeholder: 'Jist description' %>
+    </h1>
+  </header>
+
+  <section class="files">
+    <article class="file">
+      <%= f.text_area :paste, class: 'contents', autofocus: true %>
+    </article>
+  </section>
+
+  <div class="field">
+    <%= f.submit %> <% if jist.persisted? %>or <%= link_to 'cancel', jist %><% end %>
+  </div>
+
+<% end %>

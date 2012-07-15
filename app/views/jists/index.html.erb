@@ -1,7 +1,9 @@
-<h1>All Jists</h1>
+<article class="jists index">
+  <h1>All Jists</h1>
 
-<ul>
-  <% @jists.each do |jist| %>
-    <li><%= link_to jist.description, jist %></li>
-  <% end %>
-</ul>
+  <ul class="jists-list">
+    <% @jists.each do |jist| %>
+      <li><%= link_to "##{ jist.id }", jist %> <span class="description">– <%= jist.description %></span></li>
+    <% end %>
+  </ul>
+</article>

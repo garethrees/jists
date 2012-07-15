@@ -76,6 +76,76 @@
   }
 }
 
+.jists.index {
+  .jists-list {
+    font-size: 0.85em;
+    list-style: none;
+    padding: 0;
+    li {
+      margin-bottom: 0.4em;
+    }
+    .description {
+      color: darken(#eee, 75%);
+    }
+  }
+}
+
+.jist.new,
+.jist.edit {
+  header {
+    background: #eee;
+    border: 1px solid darken(#eee, 10%);
+    margin-bottom: 0.8em;
+    padding: 0.4em;
+    .title {
+      font-size: 1.5em;
+      margin: 0;
+      text-shadow: 0 1px 0 #fff;
+      .id {
+        color: darken(#eee, 25%);
+        font-size: 0.75em;
+      }
+      input[type=text] {
+        color: darken(#eee, 75%);
+        display: inline-block;
+        width: 80%;
+      }
+    }
+  }
+
+  .files {
+    margin-bottom: 0.8em;
+    .file {
+      margin-bottom: 0.8em;
+//      .filename {
+//        background: #eee;
+//        border: 1px solid darken(#eee, 10%);
+//        color: darken(#eee, 50%);
+//        font-family: monospace;
+//        font-size: 1em;
+//        font-weight: normal;
+//        letter-spacing: -1px;
+//        margin: 0;
+//        padding: 0.8em 0.4em;
+//        text-shadow: 0 0 1px #fff;
+//      }
+      textarea.contents {
+        background: ghostWhite;
+        border: 1px solid darken(#eee, 10%);
+        font-family: monospace;
+        font-size: 0.85em;
+        height: 450px;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0.8em 0.4em;
+        resize: none;
+        width: 98.9%;
+      }
+    }
+  }
+
+}
+
 .history {
   .commits {
     font-size: 0.85em;
