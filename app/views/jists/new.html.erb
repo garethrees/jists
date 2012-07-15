@@ -1,3 +1,14 @@
 <section class="jist new">
   <%= render :partial => "form", :locals => { :jist => @jist } %>
 </section>
+
+<% content_for :secondary do -%>
+  <aside class="recently-updated">
+    <h3>Recently Updated</h3>
+    <ul>
+      <% Jist.order('updated_at DESC').limit(20).each do |jist| %>
+        <li><%= link_to "##{jist.id}", jist %> <span class="description"><%= jist.description %></span></li>
+      <% end %>
+    </ul>
+  </aside>
+<% end -%>

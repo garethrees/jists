@@ -163,5 +163,17 @@
   }
 }
 
-
+.recently-updated {
+  ul {
+    font-size: 0.85em;
+    list-style: none;
+    padding: 0;
+    li {
+      margin-bottom: 0.4em;
+      .description {
+        color: darken(#eee, 50%);
+      }
+    }
+  }
+}
 
