@@ -1,4 +1,4 @@
-# Jist: A [GitHub Gist] Clone
+# Jist: A Rails clone of [GitHub Gist](http://gist.github.com)
 
 ## Install
 
