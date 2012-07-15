@@ -39,16 +39,34 @@
 	<!-- Load JS (Should be at bottom) -->
   <%= javascript_include_tag "application" %>
 
-  <%= csrf_meta_tags %>
-
 	<!-- HTML5 Shim -->
 	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
+  <%= csrf_meta_tags %>
+
 </head>
 <body>
 
-  <%= yield %>
+  <header id="banner">
+    <div class="wrapper">
+      <h1 class="title"><%= link_to "Jist", root_url %></h1>
+    </div>
+  </header>
+
+  <div class="wrapper">
+
+
+    <div id="secondary">
+      <%= yield :secondary %>
+    </div>
+
+    <div id="main" role="main">
+      <%= yield %>
+    </div>
+
+  </div>
 
 </body>
 </html>

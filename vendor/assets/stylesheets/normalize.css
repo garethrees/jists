@@ -88,6 +88,7 @@ textarea {
  */
 
 body {
+    color: #222;
     margin: 0;
 }
 
@@ -124,16 +125,19 @@ a:hover {
 
 h1 {
     font-size: 2em;
+    letter-spacing: -1px;
     margin: 0 0 0.67em 0;
 }
 
 h2 {
     font-size: 1.5em;
+    letter-spacing: -1px;
     margin: 0 0 0.83em 0;
 }
 
 h3 {
     font-size: 1.17em;
+    letter-spacing: -1px;
     margin: 0 0 1em 0;
 }
 
@@ -497,4 +501,31 @@ textarea {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
 }

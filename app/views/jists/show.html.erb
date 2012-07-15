@@ -1,20 +1,33 @@
-<h1><%= @jist.description %></h1>
-<p><small><%= link_to "Edit", edit_jist_path(@jist) %></small></p>
+<article class="jist show">
 
-<%# @jist.paste.first.message %>
+  <header class="cf">
+    <h1 class="title"><span class="id"><%= "##{ @jist.id }:" %></span> <span class="description"><%= @jist.description %></span></h1>
+    <ul class="controls">
+      <li><%= link_to "Edit", edit_jist_path(@jist), class: 'edit' %></li>
+    </ul>
+  </header>
 
-<h2>Files</h2>
+  <section class="files">
+    <% @jist.files(@commit).each do |file| %>
+      <article class="file">
+        <h1 class="filename"><%= file[:name] %></h1>
 
-<% @jist.files(@commit).each do |file| %>
-  <h4><%= file[:name] %></h4>
-  <pre>
-    <code><%= file[:data] %></code>
-  </pre>
-<% end %>
+        <pre class="contents">
+          <code><%= file[:data] %></code>
+        </pre>
+      </article>
+    <% end %>
+  </section>
 
-<h3>History</h3>
-<ol>
-<% @jist.commits.each do |commit| %>
-  <li><%= link_to commit.id, jist_path(@jist, commit.id) %> <b><%= commit.author %></b> <mark><%= commit.message %></mark> <small><%= commit.authored_date %></small></li>
-<% end %>
-</ol>
+</article>
+
+<% content_for :secondary do -%>
+  <aside class="history">
+    <h3>History</h3>
+    <ol class="commits">
+    <% @jist.commits.each do |commit| %>
+      <li><%= link_to commit.id, jist_path(@jist, commit.id) %> <b class="author"><%= commit.author %></b> <time class="authored_date"><%= commit.authored_date %></time></li>
+    <% end %>
+    </ol>
+  </aside>
+<% end -%>

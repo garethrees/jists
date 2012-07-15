@@ -1,0 +1,45 @@
+.wrapper {
+  margin: 0 auto;
+  min-width: 920px;
+  overflow: hidden;
+  padding: 0 3em;
+}
+
+#banner {
+  background: #eee;
+  border-bottom: 1px solid darken(#eee, 10%);
+  margin-bottom: 1.5em;
+  .title {
+    margin: 0;
+    padding: 0.4em 0;
+    text-shadow: 0 1px 0 #fff;
+    a {
+      color: #36C;
+      text-decoration: none;
+      &:visited {
+        color: #36C;
+      }
+      &:hover,
+      &:active,
+      &:focus {
+        color: #039;
+      }
+    }
+  }
+}
+
+#main {
+  overflow: hidden;
+  width: 68%;
+}
+
+#secondary {
+  float: right;
+  width: 30%;
+  h1, h2, h3 {
+    border-bottom: 2px solid #eee;
+  }
+  h4, h5, h6 {
+    border-bottom: 1px solid #eee;
+  }
+}

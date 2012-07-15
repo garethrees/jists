@@ -1,3 +1,95 @@
-// Place all the styles related to the jists controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.jist.show {
+  header {
+//    TODO: Clearfix
+    background: #eee;
+    border: 1px solid darken(#eee, 10%);
+    margin-bottom: 0.8em;
+    padding: 0.4em;
+    .title {
+      font-size: 1.5em;
+      float: left;
+      margin: 0;
+      text-shadow: 0 1px 0 #fff;
+      .id {
+        color: darken(#eee, 25%);
+        font-size: 0.75em;
+      }
+    }
+
+    .controls {
+      float: right;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        line-height: 1.6;
+        a {
+          background: darken(#eee, 10%);
+          border: 1px solid darken(#eee, 25%);
+          border-radius: 50px;
+          color: #36C;
+          font-size: 0.75em;
+          padding: 0.2em 1.5em;
+          text-decoration: none;
+          &:visited {
+            color: #36C;
+          }
+          &:hover,
+          &:active,
+          &:focus {
+            color: #039;
+          }
+        }
+      }
+    }
+  }
+
+  .files {
+    margin-bottom: 0.8em;
+    .file {
+      margin-bottom: 0.8em;
+      .filename {
+        background: #eee;
+        border: 1px solid darken(#eee, 10%);
+        color: darken(#eee, 50%);
+        font-family: monospace;
+        font-size: 1em;
+        font-weight: normal;
+        letter-spacing: -1px;
+        margin: 0;
+        padding: 0.8em 0.4em;
+        text-shadow: 0 0 1px #fff;
+      }
+      .contents {
+        background: ghostWhite;
+        border: 1px solid darken(#eee, 10%);
+        border-top: none;
+        font-size: 0.85em;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0.8em 0.4em;
+      }
+    }
+  }
+}
+
+.history {
+  .commits {
+    font-size: 0.85em;
+    list-style: none;
+    padding: 0;
+    li {
+      margin-bottom: 0.4em;
+      a {
+        display: block;
+      }
+      .authored_date {
+        font-size: 0.85em;
+      }
+    }
+  }
+}
+
+
+
