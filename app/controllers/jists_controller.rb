@@ -7,7 +7,6 @@ class JistsController < ApplicationController
   def show
     @jist = Jist.find(params[:id])
     @commit = params[:sha] ? params[:sha] : @jist.head.id
-    Rails.logger.info "\n @commit: #{@commit}"
   end
 
   def new

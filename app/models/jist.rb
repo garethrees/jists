@@ -2,8 +2,7 @@ class Jist < ActiveRecord::Base
 
   # TODO: include / extend Grit::Repo?
 
-  # The path to the repos are saved
-  # TODO: Move to environment config
+  # The path to where the repos are saved
   REPO_PATH = Jists::Application.config.repo_path
 
   after_save :update_repo
@@ -20,7 +19,8 @@ class Jist < ActiveRecord::Base
 
   # Public: Each file's data including filename and contents
   #
-  # commit_ref - A String SHA of the files at the time of the commit
+  # commit_ref - A String SHA of the files at the time of the commit 
+  #              (default - "HEAD")
   #
   # Returns an Array
   def files(commit_ref = nil)
@@ -66,7 +66,7 @@ class Jist < ActiveRecord::Base
   # Update the Grit::Repo with the paste data
   #
   # TODO: Accept a custom commit message
-  # TODO: Accept a filename
+  # TODO: Accept a filename and extension
   # TODO: Accept multiple files
   def update_repo
     r = repo
