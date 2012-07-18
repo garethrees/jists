@@ -12,9 +12,9 @@ class Jist < ActiveRecord::Base
     @paste = paste
   end
 
-  def files=(files)
-    debug __method__, files.inspect
-    @files = files
+  def files=(jistfiles)
+    debug __method__, jistfiles.inspect
+    @files = jistfiles
   end
 
   # Returns first file's contents for new/edit textarea
@@ -80,7 +80,7 @@ class Jist < ActiveRecord::Base
 
     @files.each do |file, data|
       if data['filename'].present?
-        i.add sanitize_filename(data['filename']), @paste.to_s
+        i.add data['filename'], @paste.to_s
       else
         i.add "#{ file }.txt", @paste.to_s
       end
