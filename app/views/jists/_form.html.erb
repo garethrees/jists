@@ -8,10 +8,20 @@
   </header>
 
   <section class="files">
-    <article class="file">
-      <h1 class="filename"><%= text_field_tag 'jist[files][jistfile_1][filename]', "" , placeholder: 'Name this file...' %></h1>
-      <%= f.text_area :paste, class: 'contents', autofocus: true %>
-    </article>
+    <% if @jist.persisted? %>
+      <% @jist.files(@commit).each do |file| %>
+        <article class="file">
+          <h1 class="filename"><%= text_field_tag 'jist[files][jistfile_1][filename]', file[:name] %></h1>
+
+          <%= f.text_area :paste, class: 'contents', autofocus: true %>
+        </article>
+      <% end %>
+    <% else %>
+      <article class="file">
+        <h1 class="filename"><%= text_field_tag 'jist[files][jistfile_1][filename]', "" , placeholder: 'Name this file...' %></h1>
+        <%= f.text_area :paste, class: 'contents', autofocus: true %>
+      </article>
+    <% end %>
   </section>
 
   <div class="field">
