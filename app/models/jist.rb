@@ -99,10 +99,10 @@ class Jist < ActiveRecord::Base
   # Returns a String
   def sanitize_filename(filename)
     # http://devblog.muziboo.com/2008/06/17/attachment-fu-sanitize-filename-regex-and-unicode-gotcha/
-    filename.strip!
+    # filename.strip!
     # TODO: Sanitize extension
     # Replace all non alphanumeric, underscore or periods with underscore
-    filename.gsub!(/[^0-9A-Za-z.\-]/, '_')
+    # filename.gsub!(/[^0-9A-Za-z.\-]/, '_')
     # TODO: Replace multiple underscores with a single underscore
     # filename.gsub!(/_{2,}/, '_')
     # TODO: Remove any trailing underscores before file extension
