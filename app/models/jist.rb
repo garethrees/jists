@@ -12,6 +12,11 @@ class Jist < ActiveRecord::Base
     @paste = paste
   end
 
+  def files=(files)
+    debug __method__, files.inspect
+    @files = files
+  end
+
   # Returns first file's contents for new/edit textarea
   def paste
     head.tree.blobs.first.data.to_s if repo.present?
@@ -72,7 +77,14 @@ class Jist < ActiveRecord::Base
     r = repo
     i = r.index
     i.read_tree 'master'
-    i.add 'gistfile.txt', @paste.to_s
+
+    @files.each do |file, data|
+      if data['filename'].present?
+        i.add sanitize_filename(data['filename']), @paste.to_s
+      else
+        i.add "#{ file }.txt", @paste.to_s
+      end
+    end
 
     if r.commit_count.zero?
       i.commit 'Initial Commit'
@@ -80,6 +92,21 @@ class Jist < ActiveRecord::Base
       i.commit '', [repo.commits.first]
     end
     touch :updated_at
+  end
+
+  # Replace non-word characters with underscores
+  #
+  # Returns a String
+  def sanitize_filename(filename)
+    # http://devblog.muziboo.com/2008/06/17/attachment-fu-sanitize-filename-regex-and-unicode-gotcha/
+    filename.strip!
+    # TODO: Sanitize extension
+    # Replace all non alphanumeric, underscore or periods with underscore
+    filename.gsub!(/[^0-9A-Za-z.\-]/, '_')
+    # TODO: Replace multiple underscores with a single underscore
+    # filename.gsub!(/_{2,}/, '_')
+    # TODO: Remove any trailing underscores before file extension
+    # filename.gsub!(/(_.)/, '.')
   end
 
   def debug(caller_name = nil, msg = nil)

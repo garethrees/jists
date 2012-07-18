@@ -9,6 +9,7 @@
 
   <section class="files">
     <article class="file">
+      <h1 class="filename"><%= text_field_tag 'jist[files][jistfile_1][filename]', "" , placeholder: 'Name this file...' %></h1>
       <%= f.text_area :paste, class: 'contents', autofocus: true %>
     </article>
   </section>

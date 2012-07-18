@@ -108,6 +108,7 @@
       input[type=text] {
         color: darken(#eee, 75%);
         display: inline-block;
+        font-family: monospace;
         width: 80%;
       }
     }
@@ -117,18 +118,21 @@
     margin-bottom: 0.8em;
     .file {
       margin-bottom: 0.8em;
-//      .filename {
-//        background: #eee;
-//        border: 1px solid darken(#eee, 10%);
-//        color: darken(#eee, 50%);
-//        font-family: monospace;
-//        font-size: 1em;
-//        font-weight: normal;
-//        letter-spacing: -1px;
-//        margin: 0;
-//        padding: 0.8em 0.4em;
-//        text-shadow: 0 0 1px #fff;
-//      }
+      .filename {
+        background: #eee;
+        border: 1px solid darken(#eee, 10%);
+        color: darken(#eee, 50%);
+        font-family: monospace;
+        font-size: 1em;
+        font-weight: normal;
+        letter-spacing: -1px;
+        margin: 0;
+        padding: 0.8em 0.4em;
+        text-shadow: 0 0 1px #fff;
+        input[type=text] {
+          font-family: inherit;
+        }
+      }
       textarea.contents {
         background: ghostWhite;
         border: 1px solid darken(#eee, 10%);
