@@ -1,7 +1,5 @@
 class Jist < ActiveRecord::Base
 
-  # TODO: include / extend Grit::Repo?
-
   # The path to where the repos are saved
   REPO_PATH = Jists::Application.config.repo_path
 
@@ -13,7 +11,6 @@ class Jist < ActiveRecord::Base
   end
 
   def files=(jistfiles)
-    debug __method__, jistfiles.inspect
     @files = jistfiles
   end
 
@@ -24,7 +21,7 @@ class Jist < ActiveRecord::Base
 
   # Public: Each file's data including filename and contents
   #
-  # commit_ref - A String SHA of the files at the time of the commit 
+  # commit_ref - A String SHA of the files at the time of the commit
   #              (default - "HEAD")
   #
   # Returns an Array
@@ -41,17 +38,15 @@ class Jist < ActiveRecord::Base
 
   # Public: The latest commit in the repo
   #
-  # Returns a Grit::Commit?
+  # Returns a Grit::Commit
   def head
-    debug __method__, "head: #{repo.head}"
     repo.head.commit
   end
 
   # Public: List of commits
   #
-  # Returns an Array of ...
+  # Returns an Array of Grit::Commits
   def commits
-    debug __method__, "commits: #{repo.commits}"
     repo.commits
   end
 
@@ -59,12 +54,12 @@ class Jist < ActiveRecord::Base
   #
   # Returns a Grit::Repo
   def repo
-    @repo ||= Grit::Repo.init_bare_or_open("#{REPO_PATH}#{id}.git") unless self.new_record?
+    @repo ||= Grit::Repo.init_bare_or_open("#{REPO_PATH}#{id}.git") unless new_record?
   end
 
-  #============================================================================
+  # ===========================================================================
   # PRIVATE
-  #============================================================================
+  # ===========================================================================
 
   private
 
@@ -107,10 +102,6 @@ class Jist < ActiveRecord::Base
     # filename.gsub!(/_{2,}/, '_')
     # TODO: Remove any trailing underscores before file extension
     # filename.gsub!(/(_.)/, '.')
-  end
-
-  def debug(caller_name = nil, msg = nil)
-    Rails.logger.debug "\n#== #{self.class}##{caller_name} >> #{msg}\n"
   end
 
 end
