@@ -19,6 +19,10 @@
     <% end %>
   </section>
 
+  <section class="actions">
+    <%= link_to "Delete this Jist", jist_path(@jist), method: :delete, confirm: 'Are you sure? This Jist will be permanently deleted.', class: 'destroy' %>
+  </section>
+
 </article>
 
 <% content_for :secondary do -%>

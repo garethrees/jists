@@ -43,5 +43,10 @@ class JistsController < ApplicationController
 
   def destroy
     @jist = Jist.find(params[:id])
+    @jist.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(root_path, :notice => 'Jist was successfully deleted.') }
+    end
   end
 end
