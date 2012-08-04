@@ -22,4 +22,4 @@ end
 
 You'll probably want your production directory elsewhere and backed up.
 
-![Screenshot of garethrees/jists](http://github-screenshots.s3.amazonaws.com/jists-2012-07-15.png "Screenshot of garethrees/jists")
+![Screenshot of garethrees/jists](https://s3.amazonaws.com/github-screenshots/garethrees/jists/jists-2012-07-15.png "Screenshot of garethrees/jists")
