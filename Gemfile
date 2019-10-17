@@ -1,7 +1,7 @@
 source :rubygems
 
 # Rails
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.17'
 gem 'mysql2'
 gem 'jquery-rails'
 
